@@ -1,0 +1,42 @@
+VERSION 5.00
+Begin VB.PropertyPage PropertyPage1 
+   Caption         =   "PropertyPage1"
+   ClientHeight    =   3600
+   ClientLeft      =   0
+   ClientTop       =   0
+   ClientWidth     =   4800
+   PaletteMode     =   0  'Halftone
+   ScaleHeight     =   3600
+   ScaleWidth      =   4800
+   Begin VB.CommandButton Command1 
+      Caption         =   "Command1"
+      Height          =   495
+      Left            =   1860
+      TabIndex        =   1
+      Top             =   1560
+      Width           =   1215
+   End
+   Begin VB.TextBox Text1 
+      Height          =   495
+      Left            =   2460
+      TabIndex        =   0
+      Text            =   "Text1"
+      Top             =   780
+      Width           =   1215
+   End
+   Begin VB.Label Label1 
+      Caption         =   "Label1"
+      Height          =   495
+      Left            =   1260
+      TabIndex        =   2
+      Top             =   780
+      Width           =   1215
+   End
+End
+Attribute VB_Name = "PropertyPage1"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = False
+Option Explicit
+
