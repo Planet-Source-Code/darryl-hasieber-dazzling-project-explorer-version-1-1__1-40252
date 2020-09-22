@@ -1,0 +1,7 @@
+VBGROUP 5.0
+StartupProject=One.vbp
+Project=Two.vbp
+Project=Three.vbp
+Project=Four.vbp
+Project=DHTMLOne.vbp
+Project=Five.vbp

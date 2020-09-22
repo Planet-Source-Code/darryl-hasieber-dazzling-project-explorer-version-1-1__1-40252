@@ -1,0 +1,63 @@
+VERSION 5.00
+Begin VB.UserDocument UserDocument1 
+   ClientHeight    =   3600
+   ClientLeft      =   0
+   ClientTop       =   0
+   ClientWidth     =   4800
+   HScrollSmallChange=   225
+   ScaleHeight     =   3600
+   ScaleWidth      =   4800
+   VScrollSmallChange=   225
+   Begin VB.CommandButton Command1 
+      Caption         =   "Command1"
+      Height          =   375
+      Left            =   1800
+      TabIndex        =   4
+      Top             =   2400
+      Width           =   1215
+   End
+   Begin VB.TextBox Text2 
+      Height          =   315
+      Left            =   1800
+      TabIndex        =   2
+      Text            =   "Text1"
+      Top             =   1980
+      Width           =   1215
+   End
+   Begin VB.TextBox Text1 
+      Height          =   315
+      Left            =   1800
+      TabIndex        =   0
+      Text            =   "Text1"
+      Top             =   1560
+      Width           =   1215
+   End
+   Begin VB.Label Label1 
+      Caption         =   "Label1"
+      Height          =   315
+      Index           =   1
+      Left            =   600
+      TabIndex        =   3
+      Top             =   1980
+      Width           =   1215
+   End
+   Begin VB.Label Label1 
+      Caption         =   "Label1"
+      Height          =   315
+      Index           =   0
+      Left            =   600
+      TabIndex        =   1
+      Top             =   1560
+      Width           =   1215
+   End
+End
+Attribute VB_Name = "UserDocument1"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True
+Option Explicit
+
+Private Sub Command1_Click()
+Text1 = Text2
+End Sub

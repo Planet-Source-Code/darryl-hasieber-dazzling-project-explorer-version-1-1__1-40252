@@ -1,0 +1,94 @@
+VERSION 5.00
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
+Begin VB.UserDocument docDazzProjExplorer 
+   ClientHeight    =   1455
+   ClientLeft      =   0
+   ClientTop       =   0
+   ClientWidth     =   1980
+   HScrollSmallChange=   225
+   ScaleHeight     =   1455
+   ScaleWidth      =   1980
+   VScrollSmallChange=   225
+   Begin MSComctlLib.TreeView trvProjExplorer 
+      Height          =   1455
+      Left            =   0
+      TabIndex        =   0
+      Top             =   0
+      Width           =   1995
+      _ExtentX        =   3519
+      _ExtentY        =   2566
+      _Version        =   393217
+      Indentation     =   441
+      LabelEdit       =   1
+      LineStyle       =   1
+      Style           =   7
+      Appearance      =   1
+   End
+   Begin VB.Menu mnuPopUp 
+      Caption         =   "PopUp"
+      Begin VB.Menu mnuRefresh 
+         Caption         =   "Refresh"
+      End
+   End
+End
+Attribute VB_Name = "docDazzProjExplorer"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True
+Option Explicit
+
+Private Sub mnuRefresh_Click()
+   'Check to see if user is refreshing selected node or another node
+   If trvProjExplorer.DropHighlight Is Nothing Then
+      Call TreeFunctions.PopulateNode(trvProjExplorer.SelectedItem)
+   Else
+      Call TreeFunctions.PopulateNode(trvProjExplorer.DropHighlight)
+   End If
+End Sub
+
+Private Sub trvProjExplorer_Expand(ByVal Node As MSComctlLib.Node)
+'Comment out this If statement if you want the node to rebuild on expand.
+'As is the user is responsible for refreshing the node. This should not cause an error
+'as the code does refresh the node if it cannot find the item refernced by a node.
+   If Node.Child.Text = "Dummy" Then
+      Call TreeFunctions.PopulateNode(Node)
+   End If
+End Sub
+
+Private Sub trvProjExplorer_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
+   If Button = vbRightButton Then
+      PopupMenu mnuPopUp
+   ElseIf Button = vbLeftButton Then
+      'This tests if the user left clicked on a node or elsewhere.
+      'If they clicked on the node then we call the procedure that would have been called by the NodeClick event.
+      If Not trvProjExplorer.HitTest(x, y) Is Nothing Then
+         'When a Tree node is clicked we want to open the item selected in the relevant design window
+         Call TreeFunctions.ActivateSelectedNodeItem(trvProjExplorer.HitTest(x, y))
+      End If
+   End If
+End Sub
+
+Private Sub trvProjExplorer_NodeClick(ByVal Node As MSComctlLib.Node)
+'When a Tree node is clicked we want to open the item selected in the relevant design window
+'   Call TreeFunctions.ActivateSelectedNodeItem(Node)
+'
+'We no longer use this event because it prevents the MouseUp event from from firing.
+'The result is that if the user right clicks on a node we do not get a popup menu.
+'Instead we use the MouseUp event and the HitTest method to do what this event would normally have done.
+'The above exists here only to explain why I have commented this out and to assist in the understanding of the code in trvProjExplorer_MouseUp.
+End Sub
+
+Private Sub UserDocument_Resize()
+  UserDocument.trvProjExplorer.Width = ScaleWidth - (UserDocument.trvProjExplorer.Left * 2)
+  UserDocument.trvProjExplorer.Height = ScaleHeight
+End Sub
+
+Public Function BuildTree()
+   'This is a caller for clsTree.BuildTree.
+   'The reason it exists is that the AddIn Designer creates an instance of docDazzProjExplorer.
+   'This document then creates an instance of clsTree.
+   'The above must be followed as you cannot pass the Tree to clsTree from outside this document
+   Set TreeFunctions.TreeCtrl = UserDocument.trvProjExplorer
+   TreeFunctions.BuildTree
+End Function
